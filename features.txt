@@ -1,0 +1,14 @@
+
+Features Implmented:
+    - Merge Video Clip
+    - Trim Video Clip
+    - Background Audio
+    - Normalize Audio
+    - Resoultion
+    - FPS
+    - Transition
+    - Speed of a Clip
+    - Image as a Clip
+    - Text Overlay ( Time can be configured )
+    - Per Clip volume control
+    - ken_burns effects

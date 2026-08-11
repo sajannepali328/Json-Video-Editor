@@ -1,0 +1,6 @@
+# Python bytecode cache
+__pycache__/
+
+# Media folders and output files
+media/
+output.mp4
