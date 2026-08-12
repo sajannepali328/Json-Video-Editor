@@ -86,7 +86,3 @@ Your rendered video will be saved as `output.mp4`.
 }
 
 ```
-
-```
-
-```
