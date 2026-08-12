@@ -19,38 +19,45 @@ class FFmpegCommands:
     @staticmethod
     def _build_drawtext(text_settings):
         """
-        Builds a drawtext filter string from a clip's "text" settings dict.
-        Returns None if text_settings is falsy.
+        Accepts either a single text dict or a list of text dicts.
+        Returns a list of drawtext filter strings (empty list if nothing to render).
         """
         if not text_settings:
-            return None
+            return []
 
-        content = FFmpegCommands._escape_text(text_settings["content"])
-        font_size = text_settings.get("font_size", 48)
-        color = text_settings.get("color", "white")
-        position = text_settings.get("position", "bottom")
+        # Normalise to a list so the rest of the method is uniform
+        items = text_settings if isinstance(text_settings, list) else [text_settings]
 
         position_map = {
-            "top": "x=(w-text_w)/2:y=60",
+            "top":    "x=(w-text_w)/2:y=60",
             "center": "x=(w-text_w)/2:y=(h-text_h)/2",
             "bottom": "x=(w-text_w)/2:y=h-text_h-60",
         }
-        pos = position_map.get(position, position_map["bottom"])
 
-        drawtext = (
-            f"drawtext=text='{content}':"
-            f"fontsize={font_size}:"
-            f"fontcolor={color}:"
-            f"{pos}:"
-            f"box=1:boxcolor=black@0.4:boxborderw=10"
-        )
+        filters = []
+        for item in items:
+            content   = FFmpegCommands._escape_text(item["content"])
+            font_size = item.get("font_size", 48)
+            color     = item.get("color", "white")
+            position  = item.get("position", "bottom")
+            pos       = position_map.get(position, position_map["bottom"])
 
-        start = text_settings.get("start")
-        end = text_settings.get("end")
-        if start is not None and end is not None:
-            drawtext += f":enable='between(t,{start},{end})'"
+            drawtext = (
+                f"drawtext=text='{content}':"
+                f"fontsize={font_size}:"
+                f"fontcolor={color}:"
+                f"{pos}:"
+                f"box=1:boxcolor=black@0.4:boxborderw=10"
+            )
 
-        return drawtext
+            start = item.get("start")
+            end   = item.get("end")
+            if start is not None and end is not None:
+                drawtext += f":enable='between(t,{start},{end})'"
+
+            filters.append(drawtext)
+
+        return filters
 
     @staticmethod
     def format_video(
@@ -82,7 +89,7 @@ class FFmpegCommands:
 
         drawtext = FFmpegCommands._build_drawtext(text)
         if drawtext:
-            vf_filter += f",{drawtext}"
+            vf_filter += "," + ",".join(drawtext)
 
         command = ["ffmpeg", "-y"]
 
@@ -198,7 +205,7 @@ class FFmpegCommands:
 
         drawtext = FFmpegCommands._build_drawtext(text)
         if drawtext:
-            vf_filter += f",{drawtext}"
+            vf_filter += "," + ",".join(drawtext)
 
         command = [
             "ffmpeg",
