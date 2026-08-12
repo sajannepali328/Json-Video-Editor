@@ -11,4 +11,4 @@ Features Implmented:
     - Image as a Clip
     - Text Overlay ( Time can be configured )
     - Per Clip volume control
-    - ken_burns effects
+    - ken_burns effects on images

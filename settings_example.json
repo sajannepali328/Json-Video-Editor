@@ -21,6 +21,7 @@
                     "start": 0,
                     "end": 5
                 },
+                "speed": 2.0,
                 "ken_burns": {
                     "effect": "zoom_in"
                 },
