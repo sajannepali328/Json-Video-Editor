@@ -22,6 +22,6 @@ A simple Python tool to edit and render videos using a `settings.json` file.
 2. Put your media in the `media/` folder and update `settings.json`.
 3. Run the script:
 ```bash
-python main.py
+python test.py
 
 ```
