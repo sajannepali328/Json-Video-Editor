@@ -29,11 +29,15 @@ class FFmpegCommands:
         items = text_settings if isinstance(text_settings, list) else [text_settings]
 
         position_map = {
-            "top":    "x=(w-text_w)/2:y=60",
-            "center": "x=(w-text_w)/2:y=(h-text_h)/2",
-            "bottom": "x=(w-text_w)/2:y=h-text_h-60",
+            "top":        "x=(w-text_w)/2:y=120",                 # Good for headers / context tags
+            "upper_third":"x=(w-text_w)/2:y=h*0.25",              # Great for floating hooks or questions
+            "center":     "x=(w-text_w)/2:y=(h-text_h)/2",        # Dead center for big punchy emphasis
+            "lower_third":"x=(w-text_w)/2:y=h*0.75",              # Standard caption zone
+            "bottom":     "x=(w-text_w)/2:y=h-text_h-120",        # Safe area above UI overlays (likes/comments)
+            "left":       "x=60:y=(h-text_h)/2",                  # Left-aligned for stylistic layouts
+            "right":      "x=w-text_w-60:y=(h-text_h)/2",         # Right-aligned for dynamic pacing
         }
-
+        
         filters = []
         for item in items:
             content   = FFmpegCommands._escape_text(item["content"])
@@ -42,18 +46,28 @@ class FFmpegCommands:
             position  = item.get("position", "bottom")
             pos       = position_map.get(position, position_map["bottom"])
 
+            bg_color = item.get("background_color")
+            if bg_color:
+                box_setting = f"box=1:boxcolor={bg_color}:boxborderw=12"
+            else:
+                box_setting = "box=1:boxcolor=black@0.4:boxborderw=10"
+
             drawtext = (
                 f"drawtext=text='{content}':"
                 f"fontsize={font_size}:"
                 f"fontcolor={color}:"
                 f"{pos}:"
-                f"box=1:boxcolor=black@0.4:boxborderw=10"
+                f"{box_setting}"
             )
 
             start = item.get("start")
             end   = item.get("end")
+            
             if start is not None and end is not None:
-                drawtext += f":enable='between(t,{start},{end})'"
+
+                time_expression = f"between(t,{start},{end})"
+                drawtext += f":enable='{time_expression}'"
+
 
             filters.append(drawtext)
 

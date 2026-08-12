@@ -20,7 +20,8 @@
             "font_size": 72,
             "color": "white",
             "start": 0,
-            "end": 5
+            "end": 5,
+            "background_color": "black"
           },
           {
             "content": "Display Text 2",
@@ -44,12 +45,14 @@
         "start": 0,
         "end": 5,
         "volume": 0.8,
-        "text": {
-          "content": "Video Subtitle",
-          "position": "top",
-          "font_size": 40,
-          "color": "yellow"
-        }
+        "text": [
+          {
+            "content": "Video Subtitle",
+            "position": "top",
+            "font_size": 40,
+            "color": "yellow"
+          }
+        ]
       }
     ]
   },
