@@ -39,7 +39,6 @@ class VideoEditor:
             return json.load(file)
 
     def _run_command(self, command):
-        print("Running:", " ".join(command))
 
         result = subprocess.run(command, capture_output=True, text=True)
 
