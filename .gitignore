@@ -4,5 +4,4 @@ __pycache__/
 # Media folders and output files
 media/
 output.mp4
-features.txt
 settings.json
