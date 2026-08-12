@@ -22,9 +22,6 @@
                     "end": 5
                 },
                 "speed": 2.0,
-                "ken_burns": {
-                    "effect": "zoom_in"
-                },
                 "transition": {
                     "type": "fade",
                     "duration": 0.5

@@ -4,7 +4,6 @@ import subprocess
 import shutil
 
 from ffmpeg_commands import FFmpegCommands
-from pillow_commands import PillowCommands
 
 
 class VideoEditor:
@@ -67,31 +66,17 @@ class VideoEditor:
                 input_file = clip["file_name"]
                 output_file = f"{self.temp_dir}/video_{index}.mp4"
 
-                ken_burns = clip.get("ken_burns")
-
-                if ken_burns:
-                    PillowCommands.ken_burns(
-                        input_file=input_file,
-                        output_file=output_file,
-                        effect=ken_burns.get("effect", "zoom_in"),
-                        width=width,
-                        height=height,
-                        fps=fps,
-                        duration=clip.get("duration", 3),
-                        preset=self.preset,
-                    )
-                else:
-                    command = FFmpegCommands.format_image(
-                        input_file=input_file,
-                        output_file=output_file,
-                        width=width,
-                        height=height,
-                        fps=fps,
-                        duration=clip.get("duration"),
-                        text=clip.get("text"),
-                        preset=self.preset,
-                    )
-                    self._run_command(command)
+                command = FFmpegCommands.format_image(
+                    input_file=input_file,
+                    output_file=output_file,
+                    width=width,
+                    height=height,
+                    fps=fps,
+                    duration=clip.get("duration"),
+                    text=clip.get("text"),
+                    preset=self.preset,
+                )
+                self._run_command(command)
 
                 self.process_videos.append(output_file)
 

@@ -16,7 +16,6 @@ A lightweight Python tool that automates video editing and rendering through a s
    * **Speed Control:** Modify playback speed per clip.
    * **Text Overlays:** Add custom text with configurable content, font size, color, position, and start/end timestamps.
    * **Transitions:** Smoothly transition between clips using customizable effects and durations.
-   * **Ken Burns Effects:** Apply dynamic zoom and pan effects to still images.
    * **Per-Clip Volume:** Control audio levels individually for each video clip.
 
 4. **Background Audio**
@@ -25,11 +24,3 @@ A lightweight Python tool that automates video editing and rendering through a s
 
 5. **Audio Normalization**
    * Optional broadcast-standard audio normalization (EBU R128) for the final mix.
-
----
-
-## How to Run
-
-1. **Install dependencies:**
-   ```bash
-   pip install pillow
