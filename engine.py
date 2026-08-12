@@ -126,18 +126,16 @@ class VideoEditor:
             result = self._run_command(command)
             has_audio = bool(result.stdout.strip())
             audio_check[video_path] = has_audio
+        
+        for file, has_audio in audio_check.items():
 
-        if any(audio_check.values()):
+            if not has_audio:
+                _file = file.replace(".mp4", "_.mp4")
+                command = FFmpegCommands.add_silent_audio(file, _file)
+                self._run_command(command)
 
-            for file, has_audio in audio_check.items():
-
-                if not has_audio:
-                    _file = file.replace(".mp4", "_.mp4")
-                    command = FFmpegCommands.add_silent_audio(file, _file)
-                    self._run_command(command)
-
-                    os.remove(file)
-                    os.rename(_file, file)
+                os.remove(file)
+                os.rename(_file, file)
 
         merged_file = f"{self.temp_dir}/merged.mp4"
 

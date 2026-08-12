@@ -1,6 +1,7 @@
 from PIL import Image
 import subprocess
 
+Image.MAX_IMAGE_PIXELS = None
 
 class PillowCommands:
 
