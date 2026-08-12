@@ -1,0 +1,54 @@
+{
+    "resolution": {
+        "width": 1080,
+        "height": 1920
+    },
+    "fps": 30,
+    "normalize_audio": true,
+    "dev": false,
+    "media": {
+        "clips": [
+            {
+                "order": 1,
+                "type": "image",
+                "file_name": "media/your_image.jpg",
+                "duration": 5,
+                "text": {
+                    "content": "Display Text",
+                    "position": "center",
+                    "font_size": 72,
+                    "color": "white",
+                    "start": 0,
+                    "end": 5
+                },
+                "ken_burns": {
+                    "effect": "zoom_in"
+                },
+                "transition": {
+                    "type": "fade",
+                    "duration": 0.5
+                }
+            },
+            {
+                "order": 2,
+                "type": "video",
+                "file_name": "media/your_video.mp4",
+                "start": 0,
+                "end": 5,
+                "volume": 0.8,
+                "text": {
+                    "content": "Video Subtitle",
+                    "position": "top",
+                    "font_size": 40,
+                    "color": "yellow"
+                }
+            }
+        ]
+    },
+    "audio": {
+        "file_name": "media/background_music.mp3",
+        "volume": 0.2,
+        "fade_in": 1.0,
+        "fade_out": 2.0
+    }
+}
